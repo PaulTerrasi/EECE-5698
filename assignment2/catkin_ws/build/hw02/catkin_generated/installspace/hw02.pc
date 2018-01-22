@@ -1,0 +1,8 @@
+prefix=/home/paul/catkin_ws/install
+
+Name: hw02
+Description: Description of hw02
+Version: 0.0.0
+Cflags: -I/home/paul/catkin_ws/install/include
+Libs: -L/home/paul/catkin_ws/install/lib 
+Requires: 

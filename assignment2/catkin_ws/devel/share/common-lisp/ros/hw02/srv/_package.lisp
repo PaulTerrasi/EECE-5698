@@ -1,0 +1,10 @@
+(cl:defpackage hw02-srv
+  (:use )
+  (:export
+   "ADDTHREEINTS"
+   "<ADDTHREEINTS-REQUEST>"
+   "ADDTHREEINTS-REQUEST"
+   "<ADDTHREEINTS-RESPONSE>"
+   "ADDTHREEINTS-RESPONSE"
+  ))
+
