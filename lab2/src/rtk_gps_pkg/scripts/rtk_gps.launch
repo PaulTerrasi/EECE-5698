@@ -1,0 +1,10 @@
+<launch> 
+      <arg name="host" default="192.168.43.19"/> // put your ROVER ip here 
+      <arg name="port" default="3000" /> 
+      <node pkg="rtk_gps_pkg" type="rtk_gps_node.py" name="gps_node"> 
+          <param name="host" value="$(arg host)"/>  
+          <param name="port" value="$(arg port)"/> 
+      </node>   
+      <node pkg="rtk_gps_pkg" type="gps2utm_node.py" name="gpsconv_node" > 
+      </node> 
+  </launch>

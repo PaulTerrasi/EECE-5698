@@ -1,0 +1,8 @@
+prefix=/home/ddegonge888/lab2_git/Lab2/devel
+
+Name: rtk_gps_pkg
+Description: Description of rtk_gps_pkg
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/ddegonge888/lab2_git/Lab2/devel/lib 
+Requires: message_runtime std_msgs sensor_msgs nav_msgs

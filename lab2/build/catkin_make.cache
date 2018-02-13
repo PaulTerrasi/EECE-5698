@@ -1,0 +1,2 @@
+rtk_gps_pkg
+-DCATKIN_DEVEL_PREFIX=/home/ddegonge888/lab2_git/Lab2/devel -DCMAKE_INSTALL_PREFIX=/home/ddegonge888/lab2_git/Lab2/install -G Unix Makefiles
