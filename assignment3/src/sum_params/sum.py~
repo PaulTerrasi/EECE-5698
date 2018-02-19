@@ -1,0 +1,8 @@
+#!/usr/bin/env python
+import roslib
+roslib.load_manifest('sum_params')
+import rospy
+
+a = rospy.get_param('/addends/a')
+b = rospy.get_param('/addends/b')
+print 'Sum is ' + (a + b)

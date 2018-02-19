@@ -1,0 +1,8 @@
+<launch>
+
+	<node name="talker" pkg="sum_params" type="sum_talker.py"/>
+	<node name="listener" pkg="sum_params" type="sum_listener.py"/>
+	<param name="/addends/a" type="int" value="2"/>
+	<param name="/addends/b" type="int" value="5"/>
+
+</launch>
