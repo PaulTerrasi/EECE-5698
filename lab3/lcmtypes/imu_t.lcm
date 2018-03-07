@@ -1,0 +1,17 @@
+package imu_lcm;
+struct point
+{
+    double x;
+    double y;
+    double z;
+}
+struct imu_t
+{
+    double utc_time;
+    point  mag;
+    point  accel;
+    point  gyro;
+    double pitch;
+    double roll;
+    double yaw;
+}

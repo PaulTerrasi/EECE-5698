@@ -1,0 +1,47 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# for Vectornav IMU
+
+import sys
+import lcm
+import time
+import serial
+from exlcm import imu_msg
+
+
+class imu(object):
+    def __init__(self, port_name):
+        self.port = serial.Serial(port_name, 115200, timeout=1.)  # 4800-N-8-1
+        self.lcm = lcm.LCM("udpm://?ttl=12")
+        while True:
+            line = self.port.readline()
+            data = line.split(',')
+            try:
+                if data[0] == "$VNYMR" and len(data) == 13:
+                    msg = imu_msg()
+
+                    msg.yaw = float(data[1])
+                    msg.pitch = float(data[2])
+                    msg.roll = float(data[3])
+                    msg.magX = float(data[4])
+                    msg.magY = float(data[5])
+                    msg.magZ = float(data[6])
+                    msg.accelX = float(data[7])
+                    msg.accelY = float(data[8])
+                    msg.accelZ = float(data[9])
+                    msg.gyroX = float(data[10])
+                    msg.gyroY = float(data[11])
+                    msg.gyroZ = float(data[12].split('*')[0])
+
+                    print "yaw: " +  str(msg.yaw)
+                    
+                    self.lcm.publish("IMU", msg.encode())
+            except ValueError:
+                print "Bad message received: \"" + line
+                
+        
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print "Usage: %s <serial_port>\n" % sys.argv[0]
+        sys.exit(0)
+    myct = imu(sys.argv[1])

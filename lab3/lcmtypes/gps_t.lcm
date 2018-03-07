@@ -1,0 +1,12 @@
+package gps_lcm;
+
+struct gps_t
+{
+    double  utc_time;
+    double  lat;
+    double  lng;
+    double  alt;
+    double  utm_x;
+    double  utm_y;
+    int64_t zone_number;
+}

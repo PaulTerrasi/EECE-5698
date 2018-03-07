@@ -1,0 +1,88 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Loads the gps and imu data from a log file into MATLAB
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% add the lcm.jar file to the matlabpath - need to only do this once
+javaaddpath /usr/local/share/java/lcm.jar
+javaaddpath my_types.jar
+
+log_file = lcm.logging.Log('logs/moving.log', 'r'); 
+
+% now read the file 
+% here we are assuming that the channel we are interested in is RDI. Your channel 
+% name will be different - something to do with GPS
+% also RDI has fields altitude and ranges - GPS will probably have lat, lon, utmx,
+% utmy etc
+
+gps_time = [];
+gps_lat = [];
+gps_long = [];
+gps_alt = [];
+gps_x = [];
+gps_y = [];
+gps_zone = [];
+gps_letter = [];
+
+imu_time = [];
+imu_mag_x = [];
+imu_mag_y = [];
+imu_mag_z = [];
+imu_accel_x = [];
+imu_accel_y = [];
+imu_accel_z = [];
+imu_gyro_x = [];
+imu_gyro_y = [];
+imu_gyro_z = [];
+imu_roll = [];
+imu_pitch = [];
+imu_yaw = [];
+
+while true
+ try
+   ev = log_file.readNext();
+   
+   % channel name is in ev.channel
+   % there may be multiple channels but in this case you are only interested in RDI channel
+   if strcmp(ev.channel, 'GPS')
+ 
+     % build gps object from data in this record
+      gps = gps_lcm.gps_t(ev.data);
+
+      % collect data into vectors
+      gps_time = [gps_time; gps.utc_time];
+      gps_lat = [gps_lat, gps.lat];
+      gps_long = [gps_long, gps.lng];
+      gps_alt = [gps_alt, gps.alt];
+      gps_x = [gps_x, gps.utm_x];
+      gps_y = [gps_y, gps.utm_y];
+      gps_zone = [gps_zone, gps.zone_number];
+            
+   elseif strcmp(ev.channel, 'IMU')
+       
+      % Build IMU data object 
+      imu = imu_lcm.imu_t(ev.data);
+      
+      % collect the data
+      imu_time = [imu_time, imu.utc_time];
+      imu_mag_x = [imu_mag_x, imu.mag.x];
+      imu_mag_y = [imu_mag_y, imu.mag.y];
+      imu_mag_z = [imu_mag_z, imu.mag.z];
+      imu_accel_x = [imu_accel_x, imu.accel.x];
+      imu_accel_y = [imu_accel_y, imu.accel.y];
+      imu_accel_z = [imu_accel_z, imu.accel.z];
+      imu_gyro_x = [imu_gyro_x, imu.gyro.x];
+      imu_gyro_y = [imu_gyro_y, imu.gyro.y];
+      imu_gyro_z = [imu_gyro_z, imu.gyro.z];
+      imu_roll = [imu_roll, imu.roll];
+      imu_pitch = [imu_pitch, imu.pitch];
+      imu_yaw = [imu_yaw, imu.yaw];
+      
+   end
+  catch err   % exception will be thrown when you hit end of file
+     break;
+  end
+end
+
+
+
+

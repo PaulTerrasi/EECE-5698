@@ -1,0 +1,18 @@
+package exlcm;
+
+struct point
+{
+    double x;
+    double y;
+    double z;
+}
+struct imu_t
+{
+    double timestamp;
+    point mag;
+    point accel;
+    point gyro;
+    double pitch;
+    double roll;
+    double yaw;
+}
